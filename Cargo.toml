@@ -1,0 +1,10 @@
+[package]
+name = "CoreFoundation-sys"
+version = "0.1.0"
+authors = ["David Cuddeback <david.cuddeback@gmail.com>"]
+
+links = "CoreFoundation"
+build = "build.rs"
+
+[dependencies]
+libc = "0.1.8"
