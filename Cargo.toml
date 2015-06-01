@@ -2,7 +2,12 @@
 name = "CoreFoundation-sys"
 version = "0.1.0"
 authors = ["David Cuddeback <david.cuddeback@gmail.com>"]
+description = "FFI bindings for CoreFoundation"
 license = "MIT"
+homepage = "https://github.com/dcuddeback/core-foundation-sys"
+repository = "https://github.com/dcuddeback/core-foundation-sys"
+readme = "README.md"
+keywords = ["corefoundation", "system", "bindings"]
 
 links = "CoreFoundation"
 build = "build.rs"
