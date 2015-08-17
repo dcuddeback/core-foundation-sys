@@ -9,6 +9,7 @@ pub use data::*;
 pub use dictionary::*;
 pub use locale::*;
 pub use string::*;
+pub use number::*;
 
 pub mod array;
 pub mod base;
@@ -17,3 +18,4 @@ pub mod data;
 pub mod dictionary;
 pub mod locale;
 pub mod string;
+pub mod number;
