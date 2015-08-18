@@ -38,10 +38,10 @@ pub type CFNumberRef = *const __CFNumber;
 
 extern "C" {
     pub fn CFNumberGetTypeID() -> CFTypeID;
-    pub fn CFNumberCreate(alloc: CFAllocatorRef, theType: CFNumberType, valuePtr: *mut c_void) -> CFNumberRef;
+    pub fn CFNumberCreate(alloc: CFAllocatorRef, theType: CFNumberType, valuePtr: *const c_void) -> CFNumberRef;
     pub fn CFNumberGetType(number: CFNumberRef) -> CFNumberType;
     pub fn CFNumberGetByteSize(number: CFNumberRef) -> CFIndex;
     pub fn CFNumberIsFloatType(number: CFNumberRef) -> Boolean;
-    pub fn CFNumberGetValue(number: CFNumberRef, theType: CFNumberType, valuePtr: *mut c_void) -> CFNumberRef;
-    pub fn CFNumberCompare(number: CFNumberRef, otherNumber: CFNumberRef, context: *const c_void) -> CFComparisonResult;
+    pub fn CFNumberGetValue(number: CFNumberRef, theType: CFNumberType, valuePtr: *mut c_void) -> Boolean;
+    pub fn CFNumberCompare(number: CFNumberRef, otherNumber: CFNumberRef, context: *mut c_void) -> CFComparisonResult;
 }
