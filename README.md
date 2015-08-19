@@ -34,6 +34,11 @@ definitions from `CoreFoundation/CFString.h`. The definitions in each file are m
 same order that they appear in the matching header file. Each file is then re-exported in the crate
 root, e.g., `pub use string::*`.
 
+### Contributors
+
+* [dcuddeback](https://github.com/dcuddeback)
+* [oopsies49](https://github.com/oopsies49)
+
 ## License
 Copyright © 2015 David Cuddeback
 
