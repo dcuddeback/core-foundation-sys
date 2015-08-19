@@ -14,7 +14,7 @@ Add `CoreFoundation-sys` as a dependency in `Cargo.toml`:
 
 ```toml
 [dependencies]
-CoreFoundation-sys = "0.1.0"
+CoreFoundation-sys = "0.1.1"
 ```
 
 Import the `CoreFoundation_sys` crate and use the functions as they're defined in the native
