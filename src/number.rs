@@ -5,7 +5,10 @@ use libc::c_void;
 use base::*;
 
 #[repr(C)]
-struct __CFBoolean;
+struct __CFBoolean {
+    __private: c_void,
+}
+
 pub type CFBooleanRef = *const __CFBoolean;
 
 extern "C" {
@@ -33,7 +36,10 @@ pub const kCFNumberCGFloatType: CFNumberType = 16;
 pub const kCFNumberMaxType: CFNumberType = 16;
 
 #[repr(C)]
-struct __CFNumber;
+struct __CFNumber {
+    __private: c_void,
+}
+
 pub type CFNumberRef = *const __CFNumber;
 
 extern "C" {

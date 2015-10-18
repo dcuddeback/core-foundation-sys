@@ -22,7 +22,10 @@ pub struct CFArrayCallBacks {
 pub type CFArrayApplierFunction = extern "C" fn(value: *const c_void, context: *const c_void);
 
 #[repr(C)]
-struct __CFArray;
+struct __CFArray {
+    __private: c_void,
+}
+
 pub type CFArrayRef = *const __CFArray;
 pub type CFMutableArrayRef = *mut __CFArray;
 

@@ -1,9 +1,14 @@
 // Exports from <CoreFoundation/CFData.h>
 
+use libc::c_void;
+
 use base::*;
 
 #[repr(C)]
-struct __CFData;
+struct __CFData {
+    __private: c_void,
+}
+
 pub type CFDataRef = *const __CFData;
 pub type CFMutableDataRef = *mut __CFData;
 

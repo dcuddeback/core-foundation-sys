@@ -34,7 +34,10 @@ pub type CFIndex = c_long;
 pub type CFTypeRef = *const c_void;
 
 #[repr(C)]
-struct __CFString;
+struct __CFString {
+    __private: c_void,
+}
+
 pub type CFStringRef = *const __CFString;
 pub type CFMutableStringRef = *mut __CFString;
 
@@ -54,7 +57,10 @@ pub struct CFRange {
 }
 
 #[repr(C)]
-struct __CFAllocator;
+struct __CFAllocator {
+    __private: c_void,
+}
+
 pub type CFAllocatorRef = *const __CFAllocator;
 
 extern "C" {
