@@ -13,4 +13,4 @@ links = "CoreFoundation"
 build = "build.rs"
 
 [dependencies]
-libc = "0.1.8"
+libc = "0.2"
