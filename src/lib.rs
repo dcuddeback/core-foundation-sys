@@ -1,4 +1,5 @@
-#![allow(non_upper_case_globals,non_snake_case)]
+// TODO: remove allow(private_in_public), and fix compile errors
+#![allow(non_upper_case_globals,non_snake_case,private_in_public)]
 
 extern crate libc;
 extern crate mach;
