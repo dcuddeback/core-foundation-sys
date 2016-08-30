@@ -63,6 +63,17 @@ struct __CFAllocator {
 
 pub type CFAllocatorRef = *const __CFAllocator;
 
+pub type CFAllocatorAllocateCallBack = extern "C" fn(allocSize: CFIndex, hint: CFOptionFlags, info: *mut c_void)
+                                                     -> *mut c_void;
+pub type CFAllocatorCopyDescriptionCallBack = extern "C" fn(info: *const c_void) -> CFStringRef;
+pub type CFAllocatorDeallocateCallBack = extern "C" fn(ptr: *mut c_void, info: *mut c_void);
+pub type CFAllocatorPreferredSizeCallBack = extern "C" fn(size: CFIndex, hint: CFOptionFlags, info: *mut c_void)
+                                                          -> CFIndex;
+pub type CFAllocatorReallocateCallBack = extern "C" fn(ptr: *mut c_void, newSize: CFIndex, hint: CFOptionFlags,
+                                                       info: *mut c_void) -> *mut c_void;
+pub type CFAllocatorReleaseCallBack = extern "C" fn(info: *const c_void);
+pub type CFAllocatorRetainCallBack = extern "C" fn(info: *const c_void) -> *const c_void;
+
 extern "C" {
     pub static kCFAllocatorDefault: CFAllocatorRef;
     pub static kCFAllocatorSystemDefault: CFAllocatorRef;
