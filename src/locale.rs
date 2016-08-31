@@ -2,8 +2,9 @@
 
 use libc::c_void;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFLocale {
+pub struct __CFLocale {
     __private: c_void,
 }
 

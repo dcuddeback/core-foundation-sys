@@ -31,8 +31,9 @@ pub struct CFDictionaryValueCallBacks {
     pub equal:           CFDictionaryEqualCallBack
 }
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFDictionary {
+pub struct __CFDictionary {
     __private: c_void,
 }
 
