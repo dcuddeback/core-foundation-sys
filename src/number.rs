@@ -4,8 +4,9 @@ use libc::c_void;
 
 use base::*;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFBoolean {
+pub struct __CFBoolean {
     __private: c_void,
 }
 
@@ -35,8 +36,9 @@ pub const kCFNumberNSIntegerType: CFNumberType = 15;
 pub const kCFNumberCGFloatType: CFNumberType = 16;
 pub const kCFNumberMaxType: CFNumberType = 16;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFNumber {
+pub struct __CFNumber {
     __private: c_void,
 }
 
