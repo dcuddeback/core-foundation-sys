@@ -33,8 +33,9 @@ pub type CFIndex = c_long;
 
 pub type CFTypeRef = *const c_void;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFString {
+pub struct __CFString {
     __private: c_void,
 }
 
@@ -56,8 +57,9 @@ pub struct CFRange {
     pub length: CFIndex
 }
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFAllocator {
+pub struct __CFAllocator {
     __private: c_void,
 }
 
