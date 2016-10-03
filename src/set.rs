@@ -3,8 +3,9 @@
 use libc::c_void;
 use ::{Boolean, CFAllocatorRef, CFHashCode, CFIndex, CFStringRef, CFTypeID};
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFSet {
+pub struct __CFSet {
     __private: c_void
 }
 
