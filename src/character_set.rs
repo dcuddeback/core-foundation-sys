@@ -2,8 +2,9 @@
 
 use libc::c_void;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFCharacterSet {
+pub struct __CFCharacterSet {
     __private: c_void,
 }
 

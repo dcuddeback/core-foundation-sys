@@ -21,8 +21,9 @@ pub struct CFArrayCallBacks {
 
 pub type CFArrayApplierFunction = extern "C" fn(value: *const c_void, context: *const c_void);
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFArray {
+pub struct __CFArray {
     __private: c_void,
 }
 

@@ -4,8 +4,9 @@ use libc::c_void;
 
 use base::*;
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFData {
+pub struct __CFData {
     __private: c_void,
 }
 
