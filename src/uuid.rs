@@ -1,6 +1,8 @@
 use libc::c_void;
 use ::{CFAllocatorRef, CFStringRef, CFTypeID, UInt8};
 
+#[doc(hidden)]
+#[repr(C)]
 pub struct __CFUUID {
     __private: c_void
 }
