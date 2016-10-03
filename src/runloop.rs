@@ -1,11 +1,12 @@
 use libc::c_void;
 use mach::port::mach_port_t;
-use ::{Boolean, CFAbsoluteTime, CFAllocatorRef, CFAllocatorCopyDescriptionCallBack, CFAllocatorReleaseCallBack, 
+use ::{Boolean, CFAbsoluteTime, CFAllocatorRef, CFAllocatorCopyDescriptionCallBack, CFAllocatorReleaseCallBack,
        CFAllocatorRetainCallBack, CFArrayRef, CFHashCode, CFIndex, CFOptionFlags, CFStringRef, CFTimeInterval,
        CFTypeID};
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFRunLoop {
+pub struct __CFRunLoop {
     __private: c_void
 }
 
@@ -88,10 +89,10 @@ pub struct CFRunLoopSourceContext1 {
     pub perform: CFRunLoopMachPerformCallBack
 }
 
-pub type CFRunLoopCancelCallBack = extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef); 
-pub type CFRunLoopEqualCallBack = extern "C" fn(info0: *const c_void, info1: *const c_void) -> Boolean; 
+pub type CFRunLoopCancelCallBack = extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef);
+pub type CFRunLoopEqualCallBack = extern "C" fn(info0: *const c_void, info1: *const c_void) -> Boolean;
 pub type CFRunLoopGetPortCallBack = extern "C" fn(info: *mut c_void) -> mach_port_t;
-pub type CFRunLoopHashCallBack = extern "C" fn(info: *const c_void) -> CFHashCode; 
+pub type CFRunLoopHashCallBack = extern "C" fn(info: *const c_void) -> CFHashCode;
 pub type CFRunLoopMachPerformCallBack = extern "C" fn(msg: *mut c_void, size: CFIndex, allocator: CFAllocatorRef,
                                                       info: *mut c_void);
 pub type CFRunLoopPerformCallBack = extern "C" fn(info: *mut c_void);
