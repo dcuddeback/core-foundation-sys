@@ -75,15 +75,10 @@ extern "C" {
 
     pub fn CFGetAllocator(cf: CFTypeRef) -> CFAllocatorRef;
     pub fn CFGetRetainCount(cf: CFTypeRef) -> CFIndex;
-    pub fn CFMakeCollectible(cf: CFTypeRef) -> CFTypeRef;
+    pub fn CFMakeCollectable(cf: CFTypeRef) -> CFTypeRef;
     pub fn CFRetain(cf: CFTypeRef) -> CFTypeRef;
     pub fn CFRelease(cf: CFTypeRef);
 
     pub fn CFEqual(cf1: CFTypeRef, cf2: CFTypeRef) -> Boolean;
     pub fn CFHash(cf: CFTypeRef) -> CFHashCode;
-
-    pub fn CFCopyDescription(cf: CFTypeRef) -> CFStringRef;
-    pub fn CFCopyTypeIDDescription(cf: CFTypeRef) -> CFStringRef;
-    pub fn CFGetTypeID(cf: CFTypeRef) -> CFTypeID;
-    pub fn CFShow(obj: CFTypeRef);
 }

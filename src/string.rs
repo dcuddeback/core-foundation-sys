@@ -107,4 +107,9 @@ extern "C" {
     pub fn CFStringFindCharacterFromSet(theString: CFStringRef, theSet: CFCharacterSetRef, rangeToSearch: CFRange, searchOptions: CFStringCompareFlags, result: *mut CFRange) -> Boolean;
     pub fn CFStringGetLineBounds(theString: CFStringRef, range: CFRange, lineBeginIndex: *mut CFIndex, lineEndIndex: *mut CFIndex, contentsEndIndex: *mut CFIndex);
     pub fn CFStringGetParagraphBounds(string: CFStringRef, range: CFRange, parBeginIndex: *mut CFIndex, parEndIndex: *mut CFIndex, contentsEndIndex: *mut CFIndex);
+
+    pub fn CFCopyDescription(cf: CFTypeRef) -> CFStringRef;
+    pub fn CFCopyTypeIDDescription(cf: CFTypeID) -> CFStringRef;
+    pub fn CFGetTypeID(cf: CFTypeRef) -> CFTypeID;
+    pub fn CFShow(obj: CFTypeRef);
 }
