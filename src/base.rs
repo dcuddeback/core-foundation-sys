@@ -76,7 +76,7 @@ pub type CFAllocatorPreferredSizeCallBack = extern "C" fn(size: CFIndex, hint: C
 #[repr(C)]
 pub struct CFAllocatorContext {
     pub version: CFIndex,
-    pub info: void,
+    pub info: *mut c_void,
     pub retain: CFAllocatorRetainCallBack,
     pub release: CFAllocatorReleaseCallBack,
     pub copyDescription: CFAllocatorCopyDescriptionCallBack,
