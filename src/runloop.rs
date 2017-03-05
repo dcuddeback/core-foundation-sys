@@ -2,7 +2,7 @@ use libc::c_void;
 use mach::port::mach_port_t;
 use ::{Boolean, CFAbsoluteTime, CFAllocatorRef, CFAllocatorCopyDescriptionCallBack, CFAllocatorReleaseCallBack,
        CFAllocatorRetainCallBack, CFArrayRef, CFHashCode, CFIndex, CFOptionFlags, CFStringRef, CFTimeInterval,
-       CFTypeID};
+       CFTypeID, CFTypeRef};
 
 #[doc(hidden)]
 #[repr(C)]
@@ -12,12 +12,12 @@ pub struct __CFRunLoop {
 
 pub type CFRunLoopRef = *mut __CFRunLoop;
 
-pub type CFRunLoopResult = i32;
+pub type CFRunLoopRunResult = i32;
 
-pub const kCFRunLoopRunFinished: CFRunLoopResult = 1;
-pub const kCFRunLoopRunStopped: CFRunLoopResult = 2;
-pub const kCFRunLoopRunTimedOut: CFRunLoopResult = 3;
-pub const kCFRunLoopRunHandledSource: CFRunLoopResult = 4;
+pub const kCFRunLoopRunFinished: CFRunLoopRunResult = 1;
+pub const kCFRunLoopRunStopped: CFRunLoopRunResult = 2;
+pub const kCFRunLoopRunTimedOut: CFRunLoopRunResult = 3;
+pub const kCFRunLoopRunHandledSource: CFRunLoopRunResult = 4;
 
 extern "C" {
     pub static kCFRunLoopCommonModes: CFStringRef;
@@ -28,7 +28,7 @@ extern "C" {
 
     pub fn CFRunLoopRun();
     pub fn CFRunLoopRunInMode(mode: CFStringRef, seconds: CFTimeInterval, returnAfterSourceHandled: Boolean)
-                              -> CFRunLoopResult;
+                              -> CFRunLoopRunResult;
 
     pub fn CFRunLoopWakeUp(rl: CFRunLoopRef);
     pub fn CFRunLoopStop(rl: CFRunLoopRef);
@@ -51,12 +51,13 @@ extern "C" {
     pub fn CFRunLoopRemoveTimer(rl: CFRunLoopRef, timer: CFRunLoopTimerRef, mode: CFStringRef);
     pub fn CFRunLoopContainsTimer(rl: CFRunLoopRef, timer: CFRunLoopTimerRef, mode: CFStringRef) -> Boolean;
 
-    pub fn CFRunLoopPerformBlock(rl: CFRunLoopRef, mode: CFStringRef, block: *mut c_void);
+    pub fn CFRunLoopPerformBlock(rl: CFRunLoopRef, mode: CFTypeRef, block: *mut c_void);
     pub fn CFRunLoopGetTypeID() -> CFTypeID;
 }
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFRunLoopSource {
+pub struct __CFRunLoopSource {
     __private: c_void
 }
 
@@ -66,37 +67,29 @@ pub type CFRunLoopSourceRef = *mut __CFRunLoopSource;
 pub struct CFRunLoopSourceContext {
     pub version: CFIndex,
     pub info: *mut c_void,
-    pub retain: CFAllocatorRetainCallBack,
-    pub release: CFAllocatorReleaseCallBack,
-    pub copyDescription: CFAllocatorCopyDescriptionCallBack,
-    pub equal: CFRunLoopEqualCallBack,
-    pub hash: CFRunLoopHashCallBack,
-    pub schedule: CFRunLoopScheduleCallBack,
-    pub cancel: CFRunLoopCancelCallBack,
-    pub perform: CFRunLoopPerformCallBack
+    pub retain: extern "C" fn(info: *const c_void) -> *const c_void,
+    pub release: extern "C" fn(info: *const c_void),
+    pub copyDescription: extern "C" fn(info: *const c_void) -> CFStringRef,
+    pub equal: extern "C" fn(info1: *const c_void, info2: *const c_void) -> Boolean,
+    pub hash: extern "C" fn(info: *const c_void) -> CFHashCode,
+    pub schedule: extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef),
+    pub cancel: extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef),
+    pub perform: extern "C" fn(info: *mut c_void)
 }
 
 #[repr(C)]
 pub struct CFRunLoopSourceContext1 {
     pub version: CFIndex,
     pub info: *mut c_void,
-    pub retain: CFAllocatorRetainCallBack,
-    pub release: CFAllocatorReleaseCallBack,
-    pub copyDescription: CFAllocatorCopyDescriptionCallBack,
-    pub equal: CFRunLoopEqualCallBack,
-    pub hash: CFRunLoopHashCallBack,
-    pub getPort: CFRunLoopGetPortCallBack,
-    pub perform: CFRunLoopMachPerformCallBack
+    pub retain: extern "C" fn(info: *const c_void) -> *const c_void,
+    pub release: extern "C" fn(info: *const c_void),
+    pub copyDescription: extern "C" fn(info: *const c_void) -> CFStringRef,
+    pub equal: extern "C" fn(info1: *const c_void, info2: *const c_void) -> Boolean,
+    pub hash: extern "C" fn(info: *const c_void) -> CFHashCode,
+    pub getPort: extern "C" fn(info: *mut c_void) -> mach_port_t,
+    pub perform: extern "C" fn(msg: *mut c_void, size: CFIndex, allocator: CFAllocatorRef,
+                               info: *mut c_void) -> *mut c_void
 }
-
-pub type CFRunLoopCancelCallBack = extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef);
-pub type CFRunLoopEqualCallBack = extern "C" fn(info0: *const c_void, info1: *const c_void) -> Boolean;
-pub type CFRunLoopGetPortCallBack = extern "C" fn(info: *mut c_void) -> mach_port_t;
-pub type CFRunLoopHashCallBack = extern "C" fn(info: *const c_void) -> CFHashCode;
-pub type CFRunLoopMachPerformCallBack = extern "C" fn(msg: *mut c_void, size: CFIndex, allocator: CFAllocatorRef,
-                                                      info: *mut c_void);
-pub type CFRunLoopPerformCallBack = extern "C" fn(info: *mut c_void);
-pub type CFRunLoopScheduleCallBack = extern "C" fn(info: *mut c_void, rl: CFRunLoopRef, mode: CFStringRef);
 
 extern {
     pub fn CFRunLoopSourceCreate(allocator: CFAllocatorRef, order: CFIndex, context: *mut CFRunLoopSourceContext)
@@ -109,8 +102,9 @@ extern {
     pub fn CFRunLoopSourceSignal(source: CFRunLoopSourceRef);
 }
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFRunLoopObserver {
+pub struct __CFRunLoopObserver {
     __private: c_void
 }
 
@@ -120,15 +114,15 @@ pub type CFRunLoopObserverRef = *mut __CFRunLoopObserver;
 pub struct CFRunLoopObserverContext {
     pub version: CFIndex,
     pub info: *mut c_void,
-    pub retain: CFAllocatorRetainCallBack,
-    pub release: CFAllocatorReleaseCallBack,
-    pub copyDescription: CFAllocatorCopyDescriptionCallBack
+    pub retain: extern "C" fn(info: *const c_void) -> *const c_void,
+    pub release: extern "C" fn(info: *const c_void),
+    pub copyDescription: extern "C" fn(info: *const c_void) -> CFStringRef,
 }
 
 pub type CFRunLoopObserverCallBack = extern "C" fn(observer: CFRunLoopObserverRef, activity: CFRunLoopActivity,
                                                    info: *mut c_void);
 
-pub type CFRunLoopActivity = u32;
+pub type CFRunLoopActivity = CFOptionFlags;
 
 pub const kCFRunLoopEntry: CFRunLoopActivity = (1 << 0);
 pub const kCFRunLoopBeforeTimers: CFRunLoopActivity = (1 << 1);
@@ -156,8 +150,9 @@ extern {
     pub fn CFRunLoopObserverIsValid(observer: CFRunLoopObserverRef) -> Boolean;
 }
 
+#[doc(hidden)]
 #[repr(C)]
-struct __CFRunLoopTimer {
+pub struct __CFRunLoopTimer {
     __private: c_void
 }
 
