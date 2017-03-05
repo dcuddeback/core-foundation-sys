@@ -9,6 +9,7 @@ pub use data::*;
 pub use dictionary::*;
 pub use locale::*;
 pub use number::*;
+pub use set::*;
 pub use string::*;
 pub use uuid::*;
 
@@ -20,5 +21,6 @@ pub mod data;
 pub mod dictionary;
 pub mod locale;
 pub mod number;
+pub mod set;
 pub mod string;
 pub mod uuid;
