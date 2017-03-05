@@ -91,7 +91,7 @@ pub struct CFRunLoopSourceContext1 {
                                info: *mut c_void) -> *mut c_void
 }
 
-extern {
+extern "C" {
     pub fn CFRunLoopSourceCreate(allocator: CFAllocatorRef, order: CFIndex, context: *mut CFRunLoopSourceContext)
                                  -> CFRunLoopSourceRef;
     pub fn CFRunLoopSourceGetContext(source: CFRunLoopSourceRef, context: *mut CFRunLoopSourceContext);
@@ -132,7 +132,7 @@ pub const kCFRunLoopAfterWaiting: CFRunLoopActivity = (1 << 6);
 pub const kCFRunLoopExit: CFRunLoopActivity = (1 << 7);
 pub const kCFRunLoopAllActivities: CFRunLoopActivity = 0x0FFFFFFF;
 
-extern {
+extern "C" {
     pub fn CFRunLoopObserverCreateWithHandler(allocator: CFAllocatorRef, activities: CFOptionFlags, repeats: Boolean,
                                               order: CFIndex, block: *mut c_void) -> CFRunLoopObserverRef;
     pub fn CFRunLoopObserverCreate(allocator: CFAllocatorRef, activities: CFOptionFlags, repeats: Boolean,
@@ -169,7 +169,7 @@ pub struct CFRunLoopTimerContext {
     pub copyDescription: CFAllocatorCopyDescriptionCallBack
 }
 
-extern {
+extern "C" {
     pub fn CFRunLoopTimerCreateWithHandler(allocator: CFAllocatorRef, fireDate: CFAbsoluteTime, interval: CFTimeInterval,
                                            flags: CFOptionFlags, order: CFIndex, block: *mut c_void) -> CFRunLoopTimerRef;
     pub fn CFRunLoopTimerCreate(allocator: CFAllocatorRef, fireDate: CFAbsoluteTime, interval: CFTimeInterval,
