@@ -111,7 +111,7 @@ extern "C" {
 
     pub fn CFRetain(cf: CFTypeRef) -> CFTypeRef;
     pub fn CFRelease(cf: CFTypeRef);
-    pub fn CFAutorelease(arg: CFTypeRef) -> CFTypeID;
+    pub fn CFAutorelease(arg: CFTypeRef) -> CFTypeRef;
     pub fn CFGetRetainCount(cf: CFTypeRef) -> CFIndex;
 
     pub fn CFEqual(cf1: CFTypeRef, cf2: CFTypeRef) -> Boolean;
