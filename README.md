@@ -38,6 +38,7 @@ root, e.g., `pub use string::*`.
 
 * [dcuddeback](https://github.com/dcuddeback)
 * [oopsies49](https://github.com/oopsies49)
+* [burtonageo](https://github.com/burtonageo)
 
 ## License
 Copyright © 2015 David Cuddeback
