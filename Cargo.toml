@@ -14,4 +14,4 @@ build = "build.rs"
 
 [dependencies]
 libc = "0.2"
-mach = "0.1.0"
+mach2 = "0.4"

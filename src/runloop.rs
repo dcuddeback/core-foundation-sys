@@ -1,5 +1,5 @@
 use libc::c_void;
-use mach::port::mach_port_t;
+use mach2::port::mach_port_t;
 use ::{Boolean, CFAbsoluteTime, CFAllocatorRef, CFAllocatorCopyDescriptionCallBack, CFAllocatorReleaseCallBack,
        CFAllocatorRetainCallBack, CFArrayRef, CFHashCode, CFIndex, CFOptionFlags, CFStringRef, CFTimeInterval,
        CFTypeID, CFTypeRef};

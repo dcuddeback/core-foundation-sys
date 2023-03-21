@@ -1,7 +1,7 @@
 #![allow(non_upper_case_globals, non_snake_case)]
 
 extern crate libc;
-extern crate mach;
+extern crate mach2;
 
 pub use array::*;
 pub use base::*;
